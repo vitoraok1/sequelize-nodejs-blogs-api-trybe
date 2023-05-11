@@ -10,7 +10,6 @@ const jwtConfig = {
 const createToken = (email) => {
   const payload = {
     username: email,
-    admin: false,
   };
 
   const token = jwt.sign(payload, secret, jwtConfig);
