@@ -1,27 +1,16 @@
-const jwt = require('jsonwebtoken');
+const { verifyToken } = require('../helpers/generateToken');
 
-const secret = process.env.JWT_SECRET;
-
-const verifyTokenExists = async (req, res, next) => {
-  const token = req.headers.authorization;
-
-  if (!token) {
-    return res.status(401).json({ message: 'Token not found' });
-  }
-
-  next();
-};
-
-const validateToken = async (req, res, next) => {
-  const token = req.headers.authorization;
-
+const tokenValidation = (req, res, next) => {
   try {
-    jwt.verify(token, secret);
-  } catch (e) {
+    const { authorization: token } = req.headers;
+    if (!token) { return res.status(401).json({ message: 'Token not found' }); }
+
+    const payload = verifyToken(token);    
+    req.user = payload;
+    next();
+  } catch (error) {
     return res.status(401).json({ message: 'Expired or invalid token' });
   }
-
-  next();
 };
 
-module.exports = { verifyTokenExists, validateToken };
+module.exports = { tokenValidation };

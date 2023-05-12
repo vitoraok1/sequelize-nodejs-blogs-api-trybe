@@ -1,9 +1,11 @@
 const express = require('express');
-const { loginController, userController, categoryController } = require('./controllers');
+const { loginController, userController, 
+  categoryController, postController } = require('./controllers');
 const { loginValidate } = require('./middlewares/loginValidate');
 const { displayNameValidate, passwordValidate, 
   emailValidate } = require('./middlewares/userValidate');
-const { verifyTokenExists, validateToken } = require('./middlewares/tokenValidate');
+const { tokenValidation } = require('./middlewares/tokenValidate');
+const { validateFields } = require('./middlewares/postValidate');
 
 // ...
 
@@ -19,10 +21,11 @@ app.use(express.json());
 // ...
 app.post('/login', loginValidate, loginController.loginPost);
 app.post('/user', displayNameValidate, passwordValidate, emailValidate, userController.userPost);
-app.get('/user', verifyTokenExists, validateToken, userController.getUsers);
-app.get('/user/:id', verifyTokenExists, validateToken, userController.getFilteredUser);
-app.post('/categories', verifyTokenExists, validateToken, categoryController.categoryPost);
-app.get('/categories', verifyTokenExists, validateToken, categoryController.getAllCategories);
+app.get('/user', tokenValidation, userController.getUsers);
+app.get('/user/:id', tokenValidation, userController.getFilteredUser);
+app.post('/categories', tokenValidation, categoryController.categoryPost);
+app.get('/categories', tokenValidation, categoryController.getAllCategories);
+app.post('/post', tokenValidation, validateFields, postController.publishNewPost);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

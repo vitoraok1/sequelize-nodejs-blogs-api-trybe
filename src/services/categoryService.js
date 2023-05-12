@@ -16,4 +16,12 @@ const getAll = async () => {
   return categories;
 };
 
-module.exports = { createCategory, getAll };
+const getCategoryById = async (id) => {
+  const user = await Category.findOne({
+    where: { id },
+    attributes: { exclude: ['name'] },
+  });
+  return user;
+};
+
+module.exports = { createCategory, getAll, getCategoryById };

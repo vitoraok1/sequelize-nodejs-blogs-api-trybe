@@ -1,29 +1,32 @@
 'use strict';
 
 module.exports = {
+  /**
+   * 
+   * @param {import('sequelize').QueryInterface} queryInterface 
+   * @param {import('sequelize')} Sequelize 
+   */
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('posts_categories', {
-      postId: {
-        type: Sequelize.INTEGER,
+      post_id: {
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        field: 'post_id',
+        type: Sequelize.INTEGER,
         references: {
           model: 'blog_posts',
-          key: 'id'
-        }
+          id: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
-      categoryId: {
-        type: Sequelize.INTEGER,
+      category_id: {
         allowNull: false,
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE',
-        field: 'category_id',
+        type: Sequelize.INTEGER,
         references: {
           model: 'categories',
-          key: 'id'
-        }
+          id: 'id',
+        },
+        onDelete: 'cascade',
+        onUpdate: 'cascade',
       },
     });
   },
