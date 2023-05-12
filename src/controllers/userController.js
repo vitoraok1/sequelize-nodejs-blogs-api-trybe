@@ -1,4 +1,4 @@
-const { createUser } = require('../services/userService');
+const { createUser, getAll } = require('../services/userService');
 const { createToken } = require('../helpers/generateToken');
 
 const userPost = async (req, res) => {
@@ -9,4 +9,10 @@ const userPost = async (req, res) => {
   return res.status(201).json({ token: createToken(email) });
 };
 
-module.exports = { userPost };
+const getUsers = async (_req, res) => {
+  const users = await getAll();
+
+  return res.status(200).json(users);
+};
+
+module.exports = { userPost, getUsers };
