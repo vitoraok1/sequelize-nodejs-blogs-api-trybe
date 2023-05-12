@@ -16,4 +16,9 @@ const getAll = async () => {
   return user;
 };
 
-module.exports = { createUser, findUser, getAll };
+const getUserById = async (id) => {
+  const filteredUser = await User.findByPk(id);
+  return filteredUser;
+};
+
+module.exports = { createUser, findUser, getAll, getUserById };

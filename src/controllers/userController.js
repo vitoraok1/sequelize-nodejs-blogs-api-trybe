@@ -1,4 +1,4 @@
-const { createUser, getAll } = require('../services/userService');
+const { createUser, getAll, getUserById } = require('../services/userService');
 const { createToken } = require('../helpers/generateToken');
 
 const userPost = async (req, res) => {
@@ -15,4 +15,17 @@ const getUsers = async (_req, res) => {
   return res.status(200).json(users);
 };
 
-module.exports = { userPost, getUsers };
+const getFilteredUser = async (req, res) => {
+  const { id } = req.params;
+  let user = await getUserById(id);
+
+  if (!user) return res.status(404).json({ message: 'User does not exist' });
+
+  user = user.dataValues;
+  delete user.password;
+  // remover o atributo password do retorno do status
+
+  return res.status(200).json(user);
+};
+
+module.exports = { userPost, getUsers, getFilteredUser };
