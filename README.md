@@ -24,9 +24,9 @@ In this project developed during the course of Trybe, it was proposed develop an
 
 ## Built With
 
-- [JavaScript](https://www.javascript.com/)
-- [React](https://react.dev/)
-- [ContextAPI](https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiIoaL69er_AhXCCdQKHdaiDYgQFnoECA8QAQ&url=https%3A%2F%2Flegacy.reactjs.org%2Fdocs%2Fcontext.html&usg=AOvVaw3pf10VOlF2heYxKuLf86o9&opi=89978449)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Sequelize](https://sequelize.org/)
+- [NodeJS](https://nodejs.org)
 
 ## Getting Started
 
